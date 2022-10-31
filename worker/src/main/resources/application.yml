@@ -1,0 +1,23 @@
+server:
+  port: 8082
+spring:
+  cloud:
+    stream:
+      binders:
+        kafkaBinder:
+          type: kafka
+          environment:
+            spring:
+              kafka:
+                bootstrap-servers: ${kafka.url}
+              cloud:
+                stream:
+                  kafka:
+                    streams:
+                      binder:
+                        autoCreateTopics: true
+      bindings:
+        event-in-0:
+          destination: sample-event
+          group: handler
+          binder: kafkaBinder
